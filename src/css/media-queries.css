@@ -52,6 +52,11 @@
   #special-effects {
     display: none !important;
   }
+
+  /* Hide game instructions on mobile devices */
+  #game-instructions {
+    display: none !important;
+  }
 }
 
 /* ========== TABLET & SMALL DESKTOP ========== */

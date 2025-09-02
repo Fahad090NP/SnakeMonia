@@ -1,6 +1,3 @@
-// Enhanced Snake Game with Advanced Features
-// Author: Enhanced by AI Assistant
-
 class EnhancedSnakeGame {
   constructor() {
     this.initializeElements();
@@ -63,18 +60,59 @@ class EnhancedSnakeGame {
   initializeAudio() {
     // Initialize audio with only existing sound files
     this.sounds = {
-      gameOver: new Audio("./assets/sound/game-over.mp3"),
-      eat: new Audio("./assets/sound/eat.mp3"),
-      move: new Audio("./assets/sound/eat.mp3"), // Use eat sound for move as fallback
+      gameOver: new Audio("/assets/sound/game-over.mp3"),
+      eat: new Audio("/assets/sound/eat.mp3"),
     };
 
-    // Set default volumes
+    // Set default volumes and preload audio
+    Object.keys(this.sounds).forEach((key) => {
+      const sound = this.sounds[key];
+      sound.preload = "auto";
+      sound.load();
+    });
+
+    // Set specific volumes
     this.sounds.gameOver.volume = 0.5;
-    this.sounds.eat.volume = 0.4;
-    this.sounds.move.volume = 0.2;
+    this.sounds.eat.volume = 0.6;
 
     // Track audio state
     this.isMuted = false;
+    this.audioUnlocked = false;
+
+    // Unlock audio on first user interaction
+    this.unlockAudio();
+  }
+
+  unlockAudio() {
+    const unlockAudioContext = () => {
+      if (this.audioUnlocked) return;
+
+      // Try to play and immediately pause each sound to unlock them
+      Object.keys(this.sounds).forEach((key) => {
+        const sound = this.sounds[key];
+        sound
+          .play()
+          .then(() => {
+            sound.pause();
+            sound.currentTime = 0;
+          })
+          .catch(() => {
+            // Silently fail - audio unlock issues are common
+          });
+      });
+
+      this.audioUnlocked = true;
+
+      // Remove event listeners after first unlock
+      document.removeEventListener("touchstart", unlockAudioContext);
+      document.removeEventListener("click", unlockAudioContext);
+      document.removeEventListener("keydown", unlockAudioContext);
+    };
+
+    // Add event listeners for user interaction
+    document.addEventListener("touchstart", unlockAudioContext, { once: true });
+    document.addEventListener("click", unlockAudioContext, { once: true });
+    document.addEventListener("keydown", unlockAudioContext, { once: true });
   }
 
   initializeGameState() {
@@ -1082,10 +1120,8 @@ class EnhancedSnakeGame {
     this.stopAllSounds();
     this.showCursor(); // Always show cursor when game is over
 
-    if (this.settings.soundEnabled && !this.isMuted) {
-      this.sounds.gameOver.currentTime = 0;
-      this.sounds.gameOver.play().catch(() => {});
-    }
+    // Play game over sound
+    this.playSound("gameOver");
 
     // Update high score
     const currentHighScore = parseInt(localStorage.getItem("hi-score") || 0);
@@ -1300,6 +1336,9 @@ class EnhancedSnakeGame {
   }
 
   eatFood() {
+    // Play eat sound
+    this.playSound("eat");
+
     this.score++;
     this.combo++;
     this.streaks.eating++;
@@ -1911,14 +1950,28 @@ class EnhancedSnakeGame {
   }
 
   playSound(soundType) {
-    if (!this.settings.soundEnabled || this.isMuted) return;
+    if (!this.settings.soundEnabled || this.isMuted) {
+      return;
+    }
 
     switch (soundType) {
+      case "eat":
+        if (this.sounds.eat) {
+          this.sounds.eat.currentTime = 0;
+          this.sounds.eat.play().catch(() => {});
+        }
+        break;
+      case "gameOver":
+        if (this.sounds.gameOver) {
+          this.sounds.gameOver.currentTime = 0;
+          this.sounds.gameOver.play().catch(() => {});
+        }
+        break;
       case "achievement":
         // Use a higher pitch eat sound for achievements
         if (this.sounds.eat) {
           this.sounds.eat.currentTime = 0;
-          this.sounds.eat.playbackRate = 2;
+          this.sounds.eat.playbackRate = 1.5;
           this.sounds.eat.play().catch(() => {});
           setTimeout(() => {
             if (this.sounds.eat) this.sounds.eat.playbackRate = 1;
@@ -1928,7 +1981,7 @@ class EnhancedSnakeGame {
       case "powerup":
         if (this.sounds.eat) {
           this.sounds.eat.currentTime = 0;
-          this.sounds.eat.playbackRate = 1.5;
+          this.sounds.eat.playbackRate = 1.2;
           this.sounds.eat.play().catch(() => {});
           setTimeout(() => {
             if (this.sounds.eat) this.sounds.eat.playbackRate = 1;
@@ -1936,19 +1989,13 @@ class EnhancedSnakeGame {
         }
         break;
       case "combo":
-        if (this.sounds.move) {
-          this.sounds.move.currentTime = 0;
-          this.sounds.move.playbackRate = 1.8;
-          this.sounds.move.play().catch(() => {});
+        if (this.sounds.eat) {
+          this.sounds.eat.currentTime = 0;
+          this.sounds.eat.playbackRate = 1.8;
+          this.sounds.eat.play().catch(() => {});
           setTimeout(() => {
-            if (this.sounds.move) this.sounds.move.playbackRate = 1;
+            if (this.sounds.eat) this.sounds.eat.playbackRate = 1;
           }, 150);
-        }
-        break;
-      default:
-        if (this.sounds[soundType]) {
-          this.sounds[soundType].currentTime = 0;
-          this.sounds[soundType].play().catch(() => {});
         }
         break;
     }
