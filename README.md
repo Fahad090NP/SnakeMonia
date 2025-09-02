@@ -52,20 +52,6 @@ A modern, mobile-optimized Snake game built with HTML5, CSS3, and JavaScript.
    npm run dev
    ```
 
-4. Build for production:
-
-   ```sh
-   npm run build
-   ```
-
-5. Open `index.html` in your browser or deploy the `dist` folder to your web server.
-
-## Deployment
-
-- Fully optimized for mobile and desktop browsers
-- No overlays or effects block touch controls on mobile
-- Ready for production deployment
-
 ## License
 
 This project is licensed under the MIT License.
