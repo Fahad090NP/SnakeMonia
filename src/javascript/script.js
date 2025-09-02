@@ -63,15 +63,12 @@ class EnhancedSnakeGame {
   initializeAudio() {
     // Initialize audio with only existing sound files
     this.sounds = {
-      background: new Audio("./assets/sound/background.mp3"),
       gameOver: new Audio("./assets/sound/game-over.mp3"),
       eat: new Audio("./assets/sound/eat.mp3"),
       move: new Audio("./assets/sound/eat.mp3"), // Use eat sound for move as fallback
     };
 
     // Set default volumes
-    this.sounds.background.volume = 0.6;
-    this.sounds.background.loop = true;
     this.sounds.gameOver.volume = 0.5;
     this.sounds.eat.volume = 0.4;
     this.sounds.move.volume = 0.2;
@@ -547,12 +544,6 @@ class EnhancedSnakeGame {
 
     // Show cursor initially - will hide when snake starts moving
     this.showCursor();
-
-    // Don't start background music immediately - wait for snake to move
-    if (this.settings.soundEnabled && !this.isMuted) {
-      this.sounds.background.currentTime = 0;
-      // Music will start when snake begins moving
-    }
 
     // Initialize enhanced features
     this.initializeEnhancedFeatures();
@@ -1044,7 +1035,6 @@ class EnhancedSnakeGame {
   pauseGame() {
     if (this.gameState === "playing") {
       this.gameState = "paused";
-      this.sounds.background.pause();
       this.pauseMenu.classList.remove("hidden");
       cancelAnimationFrame(this.animationId);
       this.showCursor(); // Show cursor when paused
@@ -1056,7 +1046,6 @@ class EnhancedSnakeGame {
       this.gameState = "playing";
       this.pauseMenu.classList.add("hidden");
       this.waitingForMovement = true; // Wait for user input before moving
-      // Don't start background music until snake starts moving
       this.lastUpdateTime = Date.now();
       this.showCursor(); // Show cursor initially, will hide when snake moves
       this.gameLoop();
@@ -1165,28 +1154,12 @@ class EnhancedSnakeGame {
   moveSnake() {
     // If waiting for movement input after resume, don't move until user presses key
     if (this.waitingForMovement) {
-      // Pause background music when not moving
-      if (!this.sounds.background.paused) {
-        this.sounds.background.pause();
-      }
       return;
     }
 
     if (this.direction.x === 0 && this.direction.y === 0) {
-      // Snake is not moving - pause background music and show cursor
-      if (!this.sounds.background.paused) {
-        this.sounds.background.pause();
-      }
+      // Snake is not moving - show cursor
       return;
-    }
-
-    // Snake is moving - play background music and hide cursor
-    if (
-      this.settings.soundEnabled &&
-      !this.isMuted &&
-      this.sounds.background.paused
-    ) {
-      this.sounds.background.play().catch(() => {});
     }
 
     // Hide cursor when snake is moving
