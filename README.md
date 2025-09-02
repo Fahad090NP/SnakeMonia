@@ -2,6 +2,11 @@
 
 A modern, mobile-optimized Snake game built with HTML5, CSS3, and JavaScript.
 
+## Screenshots
+
+![SnakeMonia Gameplay](screenshots/1.jpeg)
+![SnakeMonia Menu](screenshots/2.jpeg)
+
 ## Features
 
 - Classic Snake gameplay with enhanced graphics and effects

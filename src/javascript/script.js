@@ -66,13 +66,15 @@ class EnhancedSnakeGame {
       background: new Audio("./assets/sound/background.mp3"),
       gameOver: new Audio("./assets/sound/game-over.mp3"),
       eat: new Audio("./assets/sound/eat.mp3"),
+      move: new Audio("./assets/sound/eat.mp3"), // Use eat sound for move as fallback
     };
 
     // Set default volumes
-    this.sounds.background.volume = 0.2;
+    this.sounds.background.volume = 0.6;
     this.sounds.background.loop = true;
     this.sounds.gameOver.volume = 0.5;
     this.sounds.eat.volume = 0.4;
+    this.sounds.move.volume = 0.2;
 
     // Track audio state
     this.isMuted = false;
@@ -221,7 +223,7 @@ class EnhancedSnakeGame {
 
       // Re-render if game is active
       if (this.gameState === "playing" || this.gameState === "paused") {
-        this.render();
+        this.renderSnake();
       }
     };
 
@@ -1941,28 +1943,34 @@ class EnhancedSnakeGame {
     switch (soundType) {
       case "achievement":
         // Use a higher pitch eat sound for achievements
-        this.sounds.eat.currentTime = 0;
-        this.sounds.eat.playbackRate = 2;
-        this.sounds.eat.play().catch(() => {});
-        setTimeout(() => {
-          this.sounds.eat.playbackRate = 1;
-        }, 200);
+        if (this.sounds.eat) {
+          this.sounds.eat.currentTime = 0;
+          this.sounds.eat.playbackRate = 2;
+          this.sounds.eat.play().catch(() => {});
+          setTimeout(() => {
+            if (this.sounds.eat) this.sounds.eat.playbackRate = 1;
+          }, 200);
+        }
         break;
       case "powerup":
-        this.sounds.eat.currentTime = 0;
-        this.sounds.eat.playbackRate = 1.5;
-        this.sounds.eat.play().catch(() => {});
-        setTimeout(() => {
-          this.sounds.eat.playbackRate = 1;
-        }, 100);
+        if (this.sounds.eat) {
+          this.sounds.eat.currentTime = 0;
+          this.sounds.eat.playbackRate = 1.5;
+          this.sounds.eat.play().catch(() => {});
+          setTimeout(() => {
+            if (this.sounds.eat) this.sounds.eat.playbackRate = 1;
+          }, 100);
+        }
         break;
       case "combo":
-        this.sounds.move.currentTime = 0;
-        this.sounds.move.playbackRate = 1.8;
-        this.sounds.move.play().catch(() => {});
-        setTimeout(() => {
-          this.sounds.move.playbackRate = 1;
-        }, 150);
+        if (this.sounds.move) {
+          this.sounds.move.currentTime = 0;
+          this.sounds.move.playbackRate = 1.8;
+          this.sounds.move.play().catch(() => {});
+          setTimeout(() => {
+            if (this.sounds.move) this.sounds.move.playbackRate = 1;
+          }, 150);
+        }
         break;
       default:
         if (this.sounds[soundType]) {
