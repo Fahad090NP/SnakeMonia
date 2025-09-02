@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>SnakeMonia | Play Classical Snake Game</title>
+    <link rel="stylesheet" href="./src/css/styles.css" />
+    <link rel="stylesheet" href="./src/css/components.css" />
+    <link rel="stylesheet" href="./src/css/media-queries.css" />
+    <link
+      rel="shortcut icon"
+      href="./assets/favicon/favicon.ico"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <!-- Start Menu -->
+    <div id="start-menu" class="menu-overlay">
+      <div class="menu-content">
+        <h1>🐍 Snake Game</h1>
+
+        <div class="difficulty-selection">
+          <h3>Select Difficulty:</h3>
+          <div class="button-row">
+            <button class="difficulty-btn" data-difficulty="easy">Easy</button>
+            <button class="difficulty-btn active" data-difficulty="medium">
+              Medium
+            </button>
+            <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+            <button class="difficulty-btn" data-difficulty="expert">
+              Expert
+            </button>
+          </div>
+        </div>
+
+        <div class="game-mode-selection">
+          <h3>Game Mode:</h3>
+          <div class="button-row">
+            <button class="mode-btn active" data-mode="classic">Classic</button>
+            <button class="mode-btn" data-mode="modern">Modern</button>
+            <button class="mode-btn" data-mode="survival">Survival</button>
+          </div>
+        </div>
+
+        <div class="settings">
+          <label>
+            <input type="checkbox" id="wall-collision-toggle" checked /> Wall
+            Collision
+          </label>
+          <label>
+            <input type="checkbox" id="sound-toggle" checked /> Sound Effects
+          </label>
+          <label>
+            <input type="checkbox" id="power-ups-toggle" checked /> Power-ups
+          </label>
+        </div>
+
+        <div class="start-button-container">
+          <button id="start-btn" class="start-button">Start Game</button>
+        </div>
+
+        <div class="instructions" id="game-instructions">
+          <h4>Controls:</h4>
+          <p>
+            Desktop: Arrow Keys | Space: Pause/Resume | R: Restart | ESC: Menu
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pause Menu -->
+    <div id="pause-menu" class="menu-overlay hidden">
+      <div class="menu-content">
+        <h2>Game Paused</h2>
+        <button id="resume-btn" class="menu-button">Resume</button>
+        <button id="restart-btn" class="menu-button">Restart</button>
+        <button id="main-menu-btn" class="menu-button">Main Menu</button>
+      </div>
+    </div>
+
+    <!-- Game Over Menu -->
+    <div id="game-over-menu" class="menu-overlay hidden">
+      <div class="menu-content">
+        <h2>Game Over!</h2>
+        <div id="final-score">
+          Final Score: <span id="final-score-value">0</span>
+        </div>
+        <div id="new-record" class="hidden">🎉 New High Score! 🎉</div>
+        <button id="play-again-btn" class="menu-button">Play Again</button>
+        <button id="game-over-main-menu-btn" class="menu-button">
+          Main Menu
+        </button>
+      </div>
+    </div>
+
+    <main>
+      <section id="game-board"></section>
+
+      <!-- Game UI Overlay -->
+      <div id="game-ui">
+        <div id="score-sect">Score: <span id="score-count">0</span></div>
+        <div id="hi-score-sect">
+          Hi Score: <span id="hi-score-count">0</span>
+        </div>
+        <div id="combo-sect" class="hidden">
+          Combo: <span id="combo-count">0</span>x
+        </div>
+        <div id="power-up-indicator" class="hidden"></div>
+        <div id="fps-counter" class="hidden">
+          FPS: <span id="fps-value">60</span>
+        </div>
+        <div id="food-indicator" class="hidden">🍎</div>
+
+        <!-- Game Controls -->
+        <div id="game-controls">
+          <button
+            id="pause-game-btn"
+            class="control-toggle-btn"
+            title="Pause Game"
+          >
+            ⏸️
+          </button>
+          <button
+            id="mute-game-btn"
+            class="control-toggle-btn"
+            title="Mute/Unmute"
+          >
+            🔊
+          </button>
+          <button
+            id="fullscreen-game-btn"
+            class="control-toggle-btn"
+            title="Fullscreen"
+          >
+            ⛶
+          </button>
+        </div>
+
+        <!-- Special Effects -->
+        <div id="special-effects">
+          <div id="screen-flash" class="hidden"></div>
+          <div id="particle-container"></div>
+          <div id="achievement-popup" class="hidden"></div>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="./src/javascript/script.js"></script>
+  </body>
+</html>

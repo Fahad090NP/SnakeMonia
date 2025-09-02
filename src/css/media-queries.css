@@ -1,0 +1,597 @@
+/* ================================
+   RESPONSIVE DESIGN MEDIA QUERIES
+   ================================ */
+
+/* ========== ACCESSIBILITY ========== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ========== HIGH PERFORMANCE ANIMATION SETTINGS ========== */
+@media (max-width: 768px) {
+  .food,
+  .snake-head,
+  .snake-segment {
+    animation-duration: 1.5s;
+  }
+
+  @keyframes foodPulse {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+  }
+
+  /* Touch-friendly improvements */
+  body {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+  }
+
+  #game-board {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    touch-action: none;
+  }
+
+  /* Hide special effects on mobile devices */
+  #special-effects {
+    display: none !important;
+  }
+}
+
+/* ========== TABLET & SMALL DESKTOP ========== */
+@media (max-width: 1024px) {
+  .menu-content {
+    max-width: 85%;
+    padding: 25px;
+  }
+
+  .menu-content h1 {
+    font-size: 2.2em;
+  }
+}
+
+/* ========== TABLET ========== */
+@media (max-width: 768px) {
+  /* Menu responsiveness */
+  .menu-overlay {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .menu-content {
+    padding: 20px;
+    max-width: 90%;
+    width: 100%;
+    margin: 0 auto;
+    min-height: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .menu-content h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .menu-content h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .menu-content h3 {
+    font-size: 1.3em;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  /* Better button spacing */
+  .difficulty-selection,
+  .game-mode-selection {
+    margin-bottom: 20px;
+  }
+
+  .start-button-container {
+    margin: 25px 0;
+  }
+
+  /* Score displays */
+  #score-sect {
+    font-size: 18px;
+    padding: 10px 15px;
+    width: 160px;
+    height: 45px;
+    left: 10px;
+    top: 10px;
+  }
+
+  #hi-score-sect {
+    font-size: 16px;
+    padding: 10px 15px;
+    width: 160px;
+    height: 45px;
+    left: 10px;
+    top: 65px;
+  }
+
+  /* Touch-friendly control buttons */
+  .control-toggle-btn {
+    width: 55px !important;
+    height: 55px !important;
+    font-size: 22px !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #game-controls {
+    gap: 15px;
+  }
+
+  /* Better touch feedback */
+  .control-toggle-btn:active {
+    transform: scale(0.9);
+    background: rgba(255, 255, 255, 1);
+  }
+
+  /* Button layouts - Keep in rows on tablet */
+  .button-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .difficulty-btn,
+  .mode-btn {
+    min-width: 120px;
+    margin: 5px;
+    padding: 12px 20px;
+    font-size: 14px;
+    flex: 0 0 auto;
+  }
+
+  /* Settings layout - Keep checkboxes in a row */
+  .settings {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+  }
+
+  .settings label {
+    flex: 0 0 auto;
+    margin: 0;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  /* Touch-friendly game board */
+  #game-board {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    cursor: none;
+    border-width: 2px;
+  }
+
+  /* Improve tap targets */
+  .difficulty-btn,
+  .mode-btn,
+  .start-button,
+  .menu-button {
+    min-height: 44px;
+    cursor: pointer;
+  }
+
+  /* Menu overlay improvements */
+  .menu-overlay {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+
+  /* Instructions */
+  .instructions {
+    text-align: center;
+  }
+
+  .instructions p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+
+  /* Game over menu fixes */
+  #final-score {
+    font-size: 16px;
+    margin: 15px 0;
+    text-align: center;
+  }
+
+  #new-record {
+    font-size: 14px;
+    margin: 10px 0;
+    text-align: center;
+  }
+}
+
+/* ========== MOBILE LANDSCAPE ========== */
+@media (max-width: 768px) and (orientation: landscape) {
+  .menu-overlay {
+    align-items: flex-start;
+    padding-top: 5px;
+  }
+
+  .menu-content {
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 15px;
+  }
+
+  .menu-content h1 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+  }
+
+  .difficulty-selection,
+  .game-mode-selection {
+    margin-bottom: 15px;
+  }
+
+  .difficulty-selection h3,
+  .game-mode-selection h3 {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+  }
+
+  /* Keep buttons in rows for landscape */
+  .button-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .difficulty-btn,
+  .mode-btn {
+    min-width: 80px;
+    padding: 8px 12px;
+    font-size: 12px;
+    margin: 2px;
+  }
+
+  /* Settings stay in row for landscape */
+  .settings {
+    flex-direction: row;
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .settings label {
+    font-size: 12px;
+  }
+}
+
+/* ========== MOBILE PORTRAIT ========== */
+@media (max-width: 480px) {
+  /* Menu adjustments */
+  .menu-overlay {
+    padding: 5px;
+  }
+
+  .menu-content {
+    padding: 15px;
+    max-width: 95%;
+    max-height: 95vh;
+    overflow-y: auto;
+  }
+
+  .menu-content h1 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+  }
+
+  .menu-content h2 {
+    font-size: 1.6em;
+    margin-bottom: 12px;
+  }
+
+  .menu-content h3 {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+  }
+
+  /* Score displays for mobile */
+  #score-sect {
+    font-size: 16px;
+    padding: 8px 12px;
+    width: 140px;
+    height: 40px;
+    left: 8px;
+    top: 8px;
+  }
+
+  #hi-score-sect {
+    font-size: 14px;
+    padding: 8px 12px;
+    width: 140px;
+    height: 40px;
+    left: 8px;
+    top: 55px;
+  }
+
+  /* Mobile button layout - KEEP IN ROWS */
+  .button-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    align-items: center;
+  }
+
+  /* Buttons */
+  .difficulty-btn,
+  .mode-btn {
+    padding: 10px 12px;
+    font-size: 12px;
+    min-width: 80px;
+    margin: 3px;
+    flex: 0 0 auto;
+  }
+
+  .start-button,
+  .menu-button {
+    padding: 15px 20px;
+    font-size: 16px;
+    margin: 5px 0;
+  }
+
+  /* Settings for mobile - KEEP IN ROW */
+  .settings {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+  }
+
+  .settings label {
+    font-size: 12px;
+    padding: 5px;
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  /* Instructions */
+  .instructions p {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  /* Snake eyes mobile fix */
+  .snake-head::before {
+    width: 8px;
+    height: 8px;
+    transform: translate(-50%, -50%) translate(-6px, 0);
+    box-shadow: 12px 0 0 white;
+  }
+
+  .snake-head::after {
+    width: 6px;
+    height: 6px;
+    transform: translate(-50%, -50%) translate(-6px, 0);
+    box-shadow: 12px 0 0 black;
+  }
+}
+
+/* ========== VERY SMALL MOBILE ========== */
+@media (max-width: 360px) {
+  .menu-content {
+    padding: 12px;
+  }
+
+  .menu-content h1 {
+    font-size: 1.6em;
+  }
+
+  #score-sect {
+    font-size: 14px;
+    width: 120px;
+    height: 35px;
+    padding: 6px 10px;
+  }
+
+  #hi-score-sect {
+    font-size: 12px;
+    width: 120px;
+    height: 35px;
+    padding: 6px 10px;
+    top: 48px;
+  }
+
+  /* Keep buttons in rows even on very small screens */
+  .button-row {
+    gap: 5px;
+  }
+
+  .difficulty-btn,
+  .mode-btn {
+    min-width: 70px;
+    font-size: 11px;
+    padding: 8px 10px;
+    margin: 2px;
+  }
+
+  .start-button,
+  .menu-button {
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+
+  /* Settings - keep in row but smaller */
+  .settings {
+    gap: 8px;
+  }
+
+  .settings label {
+    font-size: 11px;
+  }
+
+  /* Smaller snake eyes for very small screens */
+  .snake-head::before {
+    width: 6px;
+    height: 6px;
+    transform: translate(-50%, -50%) translate(-5px, 0);
+    box-shadow: 10px 0 0 white;
+  }
+
+  .snake-head::after {
+    width: 4px;
+    height: 4px;
+    transform: translate(-50%, -50%) translate(-5px, 0);
+    box-shadow: 10px 0 0 black;
+  }
+}
+
+/* ========== LANDSCAPE MOBILE FIXES ========== */
+@media (max-height: 500px) and (orientation: landscape) {
+  .menu-overlay {
+    align-items: flex-start;
+    padding-top: 10px;
+  }
+
+  .menu-content {
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 10px;
+  }
+
+  .menu-content h1 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+
+  .difficulty-selection,
+  .game-mode-selection,
+  .settings {
+    margin-bottom: 10px;
+  }
+
+  .instructions {
+    margin-top: 10px;
+  }
+
+  .instructions p {
+    font-size: 11px;
+  }
+}
+
+/* ========== HIGH DPI DISPLAYS ========== */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .food {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .snake-head,
+  .snake-segment {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* ========== TOUCH SCREEN OPTIMIZATIONS ========== */
+@media (hover: none) and (pointer: coarse) {
+  /* Touch-only devices */
+  body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
+  }
+
+  #game-board {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: none;
+    cursor: none !important;
+  }
+
+  /* Larger tap targets for better touch interaction */
+  .control-toggle-btn {
+    min-width: 50px;
+    min-height: 50px;
+    padding: 8px;
+  }
+
+  /* Remove hover effects on touch devices */
+  .control-toggle-btn:hover {
+    transform: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Add visual feedback for touch */
+  .control-toggle-btn:active {
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Better menu button interactions */
+  .difficulty-btn:active,
+  .mode-btn:active,
+  .menu-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* ========== DARK MODE SUPPORT ========== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #1a1a1a;
+    --text-color: #ffffff;
+  }
+
+  #score-sect,
+  #hi-score-sect {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-color: var(--secondary-color);
+  }
+
+  .menu-content {
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+  }
+}
